@@ -1,6 +1,8 @@
 import argparse
 from time import sleep
 
+from gym.wrappers.monitoring.video_recorder import VideoRecorder
+
 from pong_agent_ddqn import PongAgent, make_env
 
 master_parser = argparse.ArgumentParser().add_subparsers()
@@ -9,11 +11,14 @@ PLOT_FILE_PATH = "./output/pong-plot.png"
 env = make_env('PongNoFrameskip-v4')
 action_space = env.action_space.n
 
+video_recorder = VideoRecorder(env, path="./output/test.mp4")
+video_recorder.enabled = True
+
 
 def play(agent: PongAgent, log_frequency=1):
     scores = []
     total_steps = 0
-    for episode in range(1, 5):
+    for episode in range(1, 2):
 
         print("Episode: " + str(episode))
 
@@ -30,6 +35,7 @@ def play(agent: PongAgent, log_frequency=1):
 
             env.render()
             sleep(0.025)
+            video_recorder.capture_frame()
 
             score += reward
 
@@ -46,5 +52,7 @@ def play(agent: PongAgent, log_frequency=1):
 
 
 if __name__ == "__main__":
-    play(PongAgent(action_space, 80, 80, training=False, load_agent=True, eval_agent_path="test-agent/eval_net-episode-590000",
+    play(PongAgent(action_space, 80, 80, training=False, load_agent=True,
+                   eval_agent_path="test-agent/eval_net-episode-590000",
                    targ_agent_path="test-agent/targ_net-episode-590000"))
+    video_recorder.close()
