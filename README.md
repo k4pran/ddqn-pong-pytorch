@@ -1,4 +1,4 @@
-##Pong DDQN Agent with Pytorch
+## Pong DDQN Agent with Pytorch
 
 This agent uses pytorch to create a ddqn (Double Deep Q Network) to
 learn the game of pong. It reads the screen pixels in as the state
