@@ -7,3 +7,4 @@ preprocessing steps take place on the original image frames that
 uses Phil Tabor's method with a few tweaks. I have been learning AI 
 methods through his channel and github - https://github.com/philtabor
 
+![](output.gif)
